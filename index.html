@@ -97,12 +97,29 @@
         
         // Game loop
         const gameLoop = () => {
+
+            // Move the snake
             moveSnake();
+
+            // Check for collision
+            if (checkCollision()) {
+
+                // Stop the game
+                clearInterval(gameInterval);
+
+                // Show game over message
+                document.getElementById("info").textContent =
+                    "Game Over!";
+
+                return;
+            }
+
+            // Redraw the game
             drawGame();
         };
 
         // Run the game loop every 150 milliseconds
-        setInterval(gameLoop, 150);
+        const gameInterval = setInterval(gameLoop, 150);
 
 
         // Step 2: Keyboard controls (arrow keys)
@@ -134,6 +151,9 @@
 
 
         // Step 3: Eating and growing
+
+
+        // Create a new food item at a random position
         const createFood = () => {
             food = {
                 x: Math.floor(Math.random() * tileCount),
@@ -143,6 +163,38 @@
 
 
         // Step 4: Game over
+
+
+        // Check for collisions with walls or the snake's body
+        const checkCollision = () => {
+
+            const head = snake[0];
+
+            // Check wall collision
+            if (
+                head.x < 0 ||
+                head.x >= tileCount ||
+                head.y < 0 ||
+                head.y >= tileCount
+            ) {
+                return true;
+            }
+
+            // Check collision with the snake's body
+            for (let i = 1; i < snake.length; i++) {
+                if (
+                    head.x === snake[i].x &&
+                    head.y === snake[i].y
+                ) {
+                    return true;
+                }
+            }
+
+            // No collision
+            return false;
+        };
+
+
         // Step 5: Improvements
         //
         // ===================================
