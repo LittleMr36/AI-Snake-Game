@@ -95,8 +95,35 @@
         // Run the game loop every 150 milliseconds
         setInterval(gameLoop, 150);
 
-        
+
         // Step 2: Keyboard controls (arrow keys)
+
+
+        document.addEventListener("keydown", (event) => {
+
+            // Move up
+            if (event.key === "ArrowUp") {
+                direction = { x: 0, y: -1 };
+            }
+
+            // Move down
+            if (event.key === "ArrowDown") {
+                direction = { x: 0, y: 1 };
+            }
+
+            // Move left
+            if (event.key === "ArrowLeft") {
+                direction = { x: -1, y: 0 };
+            }
+
+            // Move right
+            if (event.key === "ArrowRight") {
+                direction = { x: 1, y: 0 };
+            }
+
+        });
+
+
         // Step 3: Eating and growing
         // Step 4: Game over
         // Step 5: Improvements
