@@ -11,11 +11,17 @@
 <body>
 
     <h1>Snake</h1>
-    <canvas id="gameCanvas" width="400"
-            height="400"></canvas>
+    <canvas id="gameCanvas" width="400" height="400"> </canvas>
 
     <p id="score">Score: 0</p>
-    <p id="info"></p>
+
+    <div id="gameControls">
+    <button id="startBtn">START</button>
+    <button id="pauseBtn">PAUSE</button>
+    <button id="restartBtn">RESTART</button>
+    </div>
+
+    <p id="info">READY!</p>
 
     <script>
         // ===== GAME SETUP =====
@@ -34,6 +40,7 @@
         let direction = { x: 1, y: 0 };
         let food = { x: 15, y: 15 };
         let score = 0;
+        let gameState = "ready";
 
         // ===== DRAWING =====
         const drawGame = () => {
@@ -101,6 +108,11 @@
         // Game loop
         const gameLoop = () => {
 
+            if (gameState !== "playing") {
+                return;
+            }
+
+
             // Move the snake
             moveSnake();
 
@@ -109,6 +121,9 @@
 
                 // Stop the game
                 clearInterval(gameInterval);
+                gameInterval = null;
+
+                gameState = "gameover";
 
                 // Show game over message
                 document.getElementById("info").textContent =
@@ -121,8 +136,8 @@
             drawGame();
         };
 
-        // Run the game loop every 150 milliseconds
-        const gameInterval = setInterval(gameLoop, 150);
+        
+        let gameInterval = null;
 
 
         // Step 2: Keyboard controls (arrow keys)
@@ -191,6 +206,67 @@
 
 
         // Step 5: Improvements
+
+        // START BUTTON
+        document.getElementById("startBtn").addEventListener("click", () => {
+
+            if (gameState === "ready" || gameState === "paused") {
+
+                gameState = "playing";
+
+                document.getElementById("info").textContent = "";
+
+                gameInterval = setInterval(gameLoop, 150);
+            }
+
+        });
+
+
+        // PAUSE BUTTON
+        document.getElementById("pauseBtn").addEventListener("click", () => {
+
+            if (gameState === "playing") {
+
+                gameState = "paused";
+
+                clearInterval(gameInterval);
+                gameInterval = null;
+
+                document.getElementById("info").textContent = "PAUSED";
+            }
+
+        });
+
+
+        // RESTART BUTTON
+        document.getElementById("restartBtn").addEventListener("click", () => {
+
+            clearInterval(gameInterval);
+
+            gameInterval = null;
+
+            snake = [
+                { x: 10, y: 10 },
+                { x: 9, y: 10 },
+                { x: 8, y: 10 }
+            ];
+
+            direction = { x: 1, y: 0 };
+
+            food = { x: 15, y: 15 };
+
+            score = 0;
+
+            gameState = "ready";
+
+            document.getElementById("score").textContent = "Score: 0";
+            document.getElementById("info").textContent = "READY!";
+
+            drawGame();
+
+        });    
+
+
         //  
         // ===================================
 

@@ -22,12 +22,12 @@ h1 {
     font-size: 48px;
     letter-spacing: 8px;
     text-transform: uppercase;
-    color: #ff2bd6;
+    color: #00f5ff;
 
     text-shadow:
-        0 0 5px #ff2bd6,
-        0 0 15px #ff2bd6,
-        0 0 30px #ff2bd6;
+        0 0 5px #00f5ff,
+        0 0 15px #00f5ff,
+        0 0 30px #00f5ff;
 
     margin-bottom: 30px;
 }
@@ -61,4 +61,36 @@ canvas {
     text-shadow:
         0 0 5px #ffe600,
         0 0 15px #ffe600;
+}
+
+/*game controls*/
+
+#gameControls {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+button {
+    padding: 12px 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    font-weight: bold;
+
+    color: #00f5ff;
+    background: #101027;
+
+    border: 2px solid #00f5ff;
+    border-radius: 4px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    color: #080816;
+    background: #00f5ff;
+
+    box-shadow: 0 0 15px #00f5ff;
 }
