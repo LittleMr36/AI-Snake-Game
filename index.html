@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <title>Snake Game</title>
-    
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,6 +13,8 @@
     <h1>Snake</h1>
     <canvas id="gameCanvas" width="400"
             height="400"></canvas>
+
+    <p id="score">Score: 0</p>
     <p id="info"></p>
 
     <script>
@@ -45,7 +47,7 @@
                 gridSize, gridSize
             );
 
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "lime";
             for (const segment of snake) {
                 ctx.fillRect(
                     segment.x * gridSize,
@@ -80,6 +82,10 @@
             snake.unshift(head);
 
             if (head.x === food.x && head.y === food.y) {
+                
+                // increase and update the score
+                score ++;
+                document.getElementById("score").textContent = "Score: " + score;
 
                 // Keep the tail to make the snake grow
                 createFood();
@@ -168,21 +174,13 @@
             const head = snake[0];
 
             // Check wall collision
-            if (
-                head.x < 0 ||
-                head.x >= tileCount ||
-                head.y < 0 ||
-                head.y >= tileCount
-            ) {
+            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount){
                 return true;
             }
 
             // Check collision with the snake's body
             for (let i = 1; i < snake.length; i++) {
-                if (
-                    head.x === snake[i].x &&
-                    head.y === snake[i].y
-                ) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
                     return true;
                 }
             }
@@ -193,7 +191,7 @@
 
 
         // Step 5: Improvements
-        //
+        //  
         // ===================================
 
     </script>
