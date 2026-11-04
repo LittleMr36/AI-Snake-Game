@@ -167,14 +167,19 @@
 
         // Create a new food item at a random position
         const createFood = () => {
-            // check if food doesn't spawn on the snake
+
             let validPosition = false;
+
             while (!validPosition) {
+
                 food = {
                     x: Math.floor(Math.random() * tileCount),
                     y: Math.floor(Math.random() * tileCount)
                 };
+
                 validPosition = true;
+
+                // Check if food overlaps with the snake
                 for (let segment of snake) {
                     if (segment.x === food.x && segment.y === food.y) {
                         validPosition = false;
